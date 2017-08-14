@@ -21,8 +21,8 @@ public class UserService {
 		userDao.save(user);
 	}
 
-	public User find(User user) {
-		return userDao.find(user);
+	public User findUserByUsername(String username) {
+		return userDao.findUserByUsername(username);
 	}
 
 	public void delete(User user) {

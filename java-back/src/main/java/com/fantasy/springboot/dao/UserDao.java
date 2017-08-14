@@ -21,16 +21,18 @@ public class UserDao {
 	private MongoTemplate mongoTemplate;
 
 	public void save(User user) {
+		//因为是练习项目,密码就不MD5加密了,实际开发中需要加密保存数据库
 		mongoTemplate.save(user);
 	}
-
-	public User find(User user) {
-		return mongoTemplate.findOne(new Query(Criteria.where("id").is(user.getId())), User.class);
+		
+	//通过用户名查找用户
+	public User findUserByUsername(String username) {
+		return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)), User.class);
 	}
 	
 	public void update(User user){
 		Query query=new Query(Criteria.where("id").is(user.getId()));
-		Update update=new Update().set("age", user.getAge()).set("name", user.getName());
+		Update update=new Update().set("username", user.getUsername()).set("password", user.getPassword());
 		mongoTemplate.updateFirst(query, update, User.class);
 	}
 

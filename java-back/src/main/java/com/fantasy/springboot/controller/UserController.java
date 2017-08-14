@@ -28,30 +28,16 @@ public class UserController {
 		return "welcome mongodb.";
 	}
 
-	@RequestMapping("/load/{id}")
-	public User load(@PathVariable("id") String id) {
-		User user = new User();
-		user.setId(id);
-		return userService.find(user);
-	}
-
-	@RequestMapping("/delete/{id}")
-	public String delete(@PathVariable("id") String id) {
-		User user = new User();
-		user.setId(id);
-		userService.delete(user);
-		return "delete successfully";
-	}
-
-	@RequestMapping("/list")
-	public List<User> list() {
-		return userService.findAll();
-	}
-
-	@RequestMapping(value = "/update", produces = "application/json", method = RequestMethod.POST)
-	public String update(@RequestBody User user) {
-		userService.update(user);
-		return userService.find(user).toString();
+	@RequestMapping(value = "/login", produces = "application/json", method = RequestMethod.POST)
+	public Boolean login(@RequestBody User user) {
+		 User u = userService.findUserByUsername(user.getUsername());
+		 if(u == null){
+			 return false;
+		 }else{
+			 //继续写
+			return null;
+		 }
+		 
 	}
 
 	@RequestMapping(value = "/add", produces = "application/json", method = RequestMethod.POST)
