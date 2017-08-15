@@ -103,12 +103,12 @@
           edit(song){
           	this.showModal = true;
           	this.mode = 1;
-			this.songId = song._id;
+			this.songId = song.id;
           	this.songName = song.songName;
           	this.singer = song.singer;
           },
           deleteSong(song){
-          	let id = song._id;
+          	let id = song.id;
             api.deleteSong(id).then(response => {
 				this.$message({
 					type: 'success',
@@ -159,7 +159,7 @@
 			}
 
 			let song = {};
-			song._id = this.songId;
+			song.id = this.songId;
 			song.songName = this.songName;
 			song.singer = this.singer;
 			song.updateAt = new Date().getTime();

@@ -32,7 +32,7 @@ public class SongController {
 	public Object deleteSong(@RequestBody String id) {
 		songService.delete(id);
 		Map<String, Object> map = new HashMap<>();
-		map.put(GlobalParams.SUCCESS, false);
+		map.put(GlobalParams.SUCCESS, true);
 		return map;
 	}
 
@@ -45,7 +45,7 @@ public class SongController {
 	public Object update(@RequestBody Song song) {
 		songService.update(song);
 		Map<String, Object> map = new HashMap<>();
-		map.put(GlobalParams.SUCCESS, false);
+		map.put(GlobalParams.SUCCESS, true);
 		return map;
 	}
 

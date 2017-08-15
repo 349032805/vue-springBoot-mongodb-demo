@@ -28,9 +28,9 @@ public class SongDao {
 	public void update(Song song) {
 		Query query = new Query(Criteria.where("id").is(song.getId()));
 		Update update = new Update()
-				.set("song_name", song.getSongName())
+				.set("songName", song.getSongName())
 				.set("singer", song.getSinger())
-				.set("update_at",song.getUpdateAt());
+				.set("updateAt",song.getUpdateAt());
 		mongoTemplate.updateFirst(query, update, Song.class);
 	}
 
