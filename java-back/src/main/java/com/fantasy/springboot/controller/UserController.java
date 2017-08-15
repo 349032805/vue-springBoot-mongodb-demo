@@ -1,16 +1,17 @@
 package com.fantasy.springboot.controller;
 
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fantasy.springboot.domain.User;
+import com.fantasy.springboot.service.GlobalParams;
 import com.fantasy.springboot.service.UserService;
 
 /**
@@ -22,6 +23,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
 
 	@RequestMapping("/")
 	public String index() {
@@ -29,21 +31,32 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", produces = "application/json", method = RequestMethod.POST)
-	public Boolean login(@RequestBody User user) {
+	public Object login(@RequestBody User user) {
 		 User u = userService.findUserByUsername(user.getUsername());
+		 Map<String, Object> map = new HashMap<>();
 		 if(u == null){
-			 return false;
+			map.put(GlobalParams.SUCCESS, false);
+			map.put(GlobalParams.ERROR_MSG,"无此用户!");
 		 }else{
-			 //继续写
-			return null;
+			 if(user.getPassword().equals(u.getPassword())){
+				 map.put(GlobalParams.SUCCESS, true);
+			 }else{
+				map.put(GlobalParams.SUCCESS, false);
+				map.put(GlobalParams.ERROR_MSG,"用户名或密码错误!");
+			 }
+			 
 		 }
+		 
+		 return map;
 		 
 	}
 
-	@RequestMapping(value = "/add", produces = "application/json", method = RequestMethod.POST)
-	public String save(@RequestBody User user) {
+	@RequestMapping(value = "/register", produces = "application/json", method = RequestMethod.POST)
+	public Object register(@RequestBody User user) {
 		userService.save(user);
-		return "add successfully.";
+		Map<String, Object> map = new HashMap<>();
+		map.put(GlobalParams.SUCCESS, true);
+		return map;
 	}
 
 }

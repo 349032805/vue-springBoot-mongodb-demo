@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fantasy.springboot.domain.Song;
+import com.fantasy.springboot.service.GlobalParams;
 import com.fantasy.springboot.service.SongService;
 
 @RestController
@@ -18,6 +19,9 @@ public class SongController {
 
 	@Autowired
 	private SongService songService;
+	
+	@Autowired
+	private GlobalParams globalParams;
 
 
 	@RequestMapping("/load/{id}")
