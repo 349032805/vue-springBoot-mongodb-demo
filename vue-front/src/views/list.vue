@@ -108,11 +108,8 @@
           	this.singer = song.singer;
           },
           deleteSong(song){
-          	// let id = song._id;
-	      	let opt = {
-              id:song._id
-            };
-            api.deleteSong(opt).then(response => {
+          	let id = song._id;
+            api.deleteSong(id).then(response => {
 				this.$message({
 					type: 'success',
 					message: '删除成功'

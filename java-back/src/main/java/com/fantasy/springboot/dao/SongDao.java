@@ -34,8 +34,8 @@ public class SongDao {
 		mongoTemplate.updateFirst(query, update, Song.class);
 	}
 
-	public void delete(Song song) {
-		mongoTemplate.remove(new Query(Criteria.where("id").is(song.getId())), Song.class);
+	public void delete(String id) {
+		mongoTemplate.remove(new Query(Criteria.where("id").is(id)), Song.class);
 	}
 
 	public List<Song> findAll() {

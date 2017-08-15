@@ -65,14 +65,6 @@ export default {
                     let opt = this.loginForm;
                     api.userLogin(opt)
                         .then(({ data }) => {     //解构赋值拿到data
-                            //账号不存在
-                            if(data.info === false){
-                                this.$message({
-                                    type: 'info',
-                                    message: '账号不存在'
-                                });
-                                return ;
-                            }
                             //账号存在
                             if(data.success){
                                 this.$message({
@@ -96,7 +88,7 @@ export default {
                             }else{
                                 this.$message({
                                     type: 'info',
-                                    message: '密码错误！'
+                                    message: data.errorMsg
                                 });
                             }
                         });

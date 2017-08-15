@@ -1,7 +1,5 @@
 package com.fantasy.springboot.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +21,6 @@ public class UserService {
 
 	public User findUserByUsername(String username) {
 		return userDao.findUserByUsername(username);
-	}
-
-	public void delete(User user) {
-		userDao.delete(user);
-	}
-	
-	public void update(User user){
-		userDao.update(user);
-	}
-	public List<User> findAll() {
-		return userDao.findAll();
 	}
 
 }

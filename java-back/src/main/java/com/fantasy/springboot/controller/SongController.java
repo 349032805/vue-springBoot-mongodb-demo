@@ -1,6 +1,8 @@
 package com.fantasy.springboot.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,37 +22,38 @@ public class SongController {
 	@Autowired
 	private SongService songService;
 	
-	@Autowired
-	private GlobalParams globalParams;
 
-
-	@RequestMapping("/load/{id}")
+	@RequestMapping("/getSongDetail/{id}")
 	public Song getSongById(@PathVariable("id") String id) {
 		return songService.findSongById(id);
 	}
 
-	@RequestMapping("/delete/{id}")
-	public String delete(@PathVariable("id") String id) {
-		User user = new User();
-		user.setId(id);
-		userService.delete(user);
-		return "delete successfully";
+	@RequestMapping(value = "/deleteSong", produces = "application/json", method = RequestMethod.POST)
+	public Object deleteSong(@RequestBody String id) {
+		songService.delete(id);
+		Map<String, Object> map = new HashMap<>();
+		map.put(GlobalParams.SUCCESS, false);
+		return map;
 	}
 
-	@RequestMapping("/list")
-	public List<Song> list() {
+	@RequestMapping("/getAllSongs")
+	public List<Song> getAllSongs() {
 		return songService.findAll();
 	}
 
-	@RequestMapping(value = "/update", produces = "application/json", method = RequestMethod.POST)
-	public String update(@RequestBody User user) {
-		userService.update(user);
-		return userService.find(user).toString();
+	@RequestMapping(value = "/updateSong", produces = "application/json", method = RequestMethod.POST)
+	public Object update(@RequestBody Song song) {
+		songService.update(song);
+		Map<String, Object> map = new HashMap<>();
+		map.put(GlobalParams.SUCCESS, false);
+		return map;
 	}
 
-	@RequestMapping(value = "/add", produces = "application/json", method = RequestMethod.POST)
-	public String save(@RequestBody User user) {
-		userService.save(user);
-		return "add successfully.";
+	@RequestMapping(value = "/addSong", produces = "application/json", method = RequestMethod.POST)
+	public Object addSong(@RequestBody Song song) {
+		songService.save(song);
+		Map<String, Object> map = new HashMap<>();
+		map.put(GlobalParams.SUCCESS, false);
+		return map;
 	}
 }

@@ -81,7 +81,7 @@ export default {
                             }else{
                                 this.$message({
                                     type: 'info',
-                                    message: '用户名已经存在'
+                                    message: data.errorMsg
                                 });
                             }
                         });

@@ -22,8 +22,8 @@ public class SongService {
 		return songDao.findSongById(id);
 	}
 
-	public void delete(Song song) {
-		songDao.delete(song);
+	public void delete(String id) {
+		songDao.delete(id);
 	}
 	
 	public void update(Song song){

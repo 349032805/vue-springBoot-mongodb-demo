@@ -53,9 +53,16 @@ public class UserController {
 
 	@RequestMapping(value = "/register", produces = "application/json", method = RequestMethod.POST)
 	public Object register(@RequestBody User user) {
-		userService.save(user);
+		User u = userService.findUserByUsername(user.getUsername());
 		Map<String, Object> map = new HashMap<>();
-		map.put(GlobalParams.SUCCESS, true);
+		if(u == null){
+			userService.save(user);
+			map.put(GlobalParams.SUCCESS, true);
+		}else{
+			map.put(GlobalParams.SUCCESS, false);
+			map.put(GlobalParams.ERROR_MSG,"用户名已存在!");
+		}
+		
 		return map;
 	}
 

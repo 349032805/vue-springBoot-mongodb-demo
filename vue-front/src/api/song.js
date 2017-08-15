@@ -7,16 +7,16 @@ export default {
     },
     //保存歌曲
     saveSong(data){
-        return instance.post('/api/saveSong', data);
+        return instance.post('/api/addSong', data);
     },
 
     //获取歌曲详细
-    getSongDetail(data){
-        return instance.post('/api/getSongDetail', data);
+    getSongDetail(id){
+        return instance.get(`/api/getSongDetail/{id}`);
     },
     //删除歌曲
-    deleteSong(data){
-        return instance.post('/api/deleteSong', data);
+    deleteSong(id){
+        return instance.post('/api/deleteSong', id);
     },
     //修改歌曲
     updateSong(data){
