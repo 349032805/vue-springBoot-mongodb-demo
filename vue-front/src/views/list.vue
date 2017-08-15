@@ -12,10 +12,10 @@
  		<tbody>
 
  			<tr v-for="song of songs">
- 				<td>{{song.song_name}}</td>
+ 				<td>{{song.songName}}</td>
  				<td>{{song.singer}}</td>
- 				<td>{{song.create_at | formatDate}}</td>
- 				<td>{{song.update_at | formatDate}}</td>
+ 				<td>{{song.createAt | formatDate}}</td>
+ 				<td>{{song.updateAt | formatDate}}</td>
  				<td>
  					<button type="button" class="btn btn-info" @click="showDetail(song)">查看</button>
  					<button type="button" class="btn btn-info" @click="edit(song)">修改</button>
@@ -37,7 +37,7 @@
 			<div class="form-group">
 			    <label class="col-xs-3 col-md-3 control-label">歌曲名:</label>
 			    <div class="col-xs-7 col-md-7">
-			      <input class="form-control" type="text" placeholder="歌曲名" maxlength="20" v-model="song_name">
+			      <input class="form-control" type="text" placeholder="歌曲名" maxlength="20" v-model="songName">
 			    </div>
 			    <span class="col-xs-1 col-md-1 require">*</span>
 			</div>
@@ -67,7 +67,7 @@
           return {
           	mode: 0,
           	songId: "",
-          	song_name: "",
+          	songName: "",
           	singer: "",
           	songs: [],
 			showModal: false,
@@ -85,7 +85,7 @@
       	},
       	closeModal(){
       		this.showModal = false;
-      		this.song_name = "";
+      		this.songName = "";
       		this.singer = "";
       	},
       	sureAddOrEdit(){
@@ -96,7 +96,7 @@
 			}
       	},
           showDetail(song){
-			let songId = song._id;
+			let songId = song.id;
 			console.log("前端songId:"+songId);
           	this.$router.push({name:'detail',params:{songId:songId}});
           },
@@ -104,7 +104,7 @@
           	this.showModal = true;
           	this.mode = 1;
 			this.songId = song._id;
-          	this.song_name = song.song_name;
+          	this.songName = song.songName;
           	this.singer = song.singer;
           },
           deleteSong(song){
@@ -121,19 +121,19 @@
           },
           _getSongs(){
 			api.getAllSongs().then((response) => {
-				this.songs = response.data.result;
+				this.songs = response.data;
 			});
           },
           _sureAdd(){
-          	if(this.song_name == ""){
+          	if(this.songName == ""){
           	 	alert("请输入歌名!");
           	 	return;
 			}
 			let song = {};
-			song.song_name = this.song_name;
+			song.songName = this.songName;
 			song.singer = this.singer;
-			song.create_at = new Date().getTime();
-			song.update_at = new Date().getTime();
+			song.createAt = new Date().getTime();
+			song.updateAt = new Date().getTime();
 
 			console.log("表单的song")
 			console.log(song)
@@ -144,7 +144,7 @@
 						type: 'success',
 						message: '保存成功'
 					});
-					this.song_name  = "";
+					this.songName  = "";
 	          		this.singer = "";
 					this.showModal = false;
 					this._getSongs();
@@ -153,16 +153,16 @@
 
           },
           _sureEdit(){
-          	if(this.song_name == ""){
+          	if(this.songName == ""){
           	 	alert("请输入歌名!");
           	 	return;
 			}
 
 			let song = {};
 			song._id = this.songId;
-			song.song_name = this.song_name;
+			song.songName = this.songName;
 			song.singer = this.singer;
-			song.update_at = new Date().getTime();
+			song.updateAt = new Date().getTime();
 			   
 			api.updateSong(song).then(({ data }) => { 
 				if(data.success){
@@ -170,7 +170,7 @@
 						type: 'success',
 						message: '修改成功'
 					});
-					this.song_name  = "";
+					this.songName  = "";
 	          		this.singer = "";
 					this.showModal = false;
 					this._getSongs();

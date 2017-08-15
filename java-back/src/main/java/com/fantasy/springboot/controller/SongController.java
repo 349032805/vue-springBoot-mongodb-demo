@@ -23,8 +23,8 @@ public class SongController {
 	private SongService songService;
 	
 
-	@RequestMapping("/getSongDetail/{id}")
-	public Song getSongById(@PathVariable("id") String id) {
+	@RequestMapping(value = "/getSongDetail", produces = "application/json", method = RequestMethod.POST)
+	public Song getSongById(@RequestBody String id) {
 		return songService.findSongById(id);
 	}
 
@@ -53,7 +53,7 @@ public class SongController {
 	public Object addSong(@RequestBody Song song) {
 		songService.save(song);
 		Map<String, Object> map = new HashMap<>();
-		map.put(GlobalParams.SUCCESS, false);
+		map.put(GlobalParams.SUCCESS, true);
 		return map;
 	}
 }

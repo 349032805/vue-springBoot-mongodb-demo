@@ -17,12 +17,6 @@ const register = resolve => {
   });
 };
 
-const hello = resolve => {
-  require.ensure(['../views/hello.vue'], () => {
-    resolve(require('../views/hello.vue'));
-  });
-};
-
 const error404 = resolve => {
   require.ensure(['../views/404.vue'], () => {
       resolve(require('../views/404.vue'));
@@ -50,14 +44,6 @@ const detail = resolve => {
 const router = new Router({
   mode: 'history', // 开启HTML5的history模式，可以让地址栏的url长得跟正常页面跳转的url一样
   routes: [
-    {
-      path: '/hello',
-      name: 'hello',
-      component: hello,
-      meta: {
-        requiresAuth: true
-      }
-    },
     {
       path: '/',
       name: 'list',

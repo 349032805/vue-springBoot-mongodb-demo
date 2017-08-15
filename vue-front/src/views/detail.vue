@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
  	<p>hello !</p>
-      <p>歌名:{{song.song_name}}</p>
+      <p>歌名:{{song.songName}}</p>
       <p>歌手:{{song.singer}}</p>
   </div>
 </template>
@@ -25,7 +25,7 @@
             let id = this.$route.params.songId;
             api.getSongDetail(id).then(response => {
                 console.log(response);
-                this.song = response.data.result;
+                this.song = response.data;
               }).catch((err) => {
                 console.log(err);
             })

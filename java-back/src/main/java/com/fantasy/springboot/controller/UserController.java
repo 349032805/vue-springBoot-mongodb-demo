@@ -39,6 +39,8 @@ public class UserController {
 			map.put(GlobalParams.ERROR_MSG,"无此用户!");
 		 }else{
 			 if(user.getPassword().equals(u.getPassword())){
+				 map.put("username", user.getUsername());
+				 map.put("token", "fantasyfantasyfantasy"); //token用md5生成,这里做练习就随便写一个
 				 map.put(GlobalParams.SUCCESS, true);
 			 }else{
 				map.put(GlobalParams.SUCCESS, false);
